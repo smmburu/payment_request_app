@@ -1,47 +1,21 @@
 import 'package:flutter/material.dart';
-import 'request_form.dart'; // provides PaymentRequestForm & color constants
-import 'login_page.dart';
-import 'dashboard.dart';
 
-void main() {
-  runApp(MyApp());
-}
+const Color kNavy = Color(0xFF06284A);
+const Color kSky = Color(0xFF4EA8F1);
+const Color kSoftGrey = Color(0xFFF3F5F8);
 
-class MyApp extends StatelessWidget {
+class PaymentRequestForm extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'RequestFlow',
-      theme: ThemeData(
-        primaryColor: kNavy,
-        scaffoldBackgroundColor: kSoftGrey,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: kNavy,
-            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 14),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            elevation: 4,
-          ),
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-          contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-          filled: true,
-          fillColor: Colors.white,
-        ),
-        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: kSky),
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => LoginPage(),
-        '/dashboard': (context) => DashboardPage(),
-        '/request': (context) => PaymentRequestForm(),
-      },
-    );
-  }
+  _PaymentRequestFormState createState() => _PaymentRequestFormState();
 }
-}
+
+class _PaymentRequestFormState extends State<PaymentRequestForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  // Request Info
+  String? paymentType;
+  String? department;
+  String? unit;
   DateTime? requestDate;
   DateTime? dueDate;
 
@@ -510,6 +484,32 @@ class MyApp extends StatelessWidget {
                       value: opt.toLowerCase(),
                       groupValue: groupValue,
                       onChanged: onChanged,
+                    ),
+                  ))
+              .toList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _datePickerField(
+      String label, DateTime? date, Function() onTap) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: 10),
+        Text(label),
+        InkWell(
+          onTap: onTap,
+          child: InputDecorator(
+            decoration: InputDecoration(border: OutlineInputBorder()),
+            child: Text(_formatDate(date)),
+          ),
+        ),
+      ],
+    );
+  }
+}
                     ),
                   ))
               .toList(),

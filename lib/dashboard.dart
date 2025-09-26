@@ -12,7 +12,7 @@ const double cardRadius = 12;
 const double statusCardHeight = 120; // Fixed height for status/summary cards
 
 class DashboardPage extends StatelessWidget {
-  const DashboardPage({Key? key}) : super(key: key);
+  const DashboardPage({super.key});
 
   Widget _navItem(BuildContext c, IconData icon, String label, {bool active = false}) {
     return Container(
@@ -371,10 +371,10 @@ class DashboardPage extends StatelessWidget {
                                             width: double.infinity,
                                             child: OutlinedButton(
                                               onPressed: () {},
-                                              child: const Text('View All Notifications'),
                                               style: OutlinedButton.styleFrom(
                                                 side: BorderSide(color: accentBlue),
                                               ),
+                                              child: const Text('View All Notifications'),
                                             ),
                                           )
                                         ],
